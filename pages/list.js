@@ -46,9 +46,9 @@ function List() {
   // fetchDocs();
 
   useEffect(() => {
-    return () => {
+    
       fetchDocs();
-    };
+    
   }, []);
 
   return (
