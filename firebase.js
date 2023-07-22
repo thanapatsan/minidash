@@ -2,7 +2,7 @@
 import { initializeApp, getApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 
@@ -26,3 +26,4 @@ const initapp = () => {
 let app = initapp();
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+connectFirestoreEmulator(db, "127.0.0.1", 8080);
