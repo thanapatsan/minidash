@@ -7,7 +7,7 @@ function Profile() {
 
   return (
     <main className="h-screen">
-      <div className="container mx-auto max-w-screen-lg h-full flex flex-col">
+      <div className="container mx-auto max-w-screen-lg h-full flex flex-col sm:px-4 lg:px-0">
         <div className="mt-4 mb-4">
           <Link href={"/home"} className="btn btn-info btn-sm mb-2">
             Back to home
