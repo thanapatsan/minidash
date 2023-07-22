@@ -19,14 +19,15 @@ function List() {
     event.preventDefault();
     const { newItem } = event.target.elements;
 
-    const docRef = await addDoc(collection(db, "notes"), {
+    await addDoc(collection(db, "notes"), {
       body: newItem.value,
     });
-    console.log(docRef);
+
+    event.target.reset();
   }
 
   function fetchDocs() {
-    const querySnapshot = onSnapshot(collection(db, "notes"), (docs) => {
+    onSnapshot(collection(db, "notes"), (docs) => {
       let temp = [];
       docs.forEach((doc) => {
         let item = {
@@ -61,19 +62,19 @@ function List() {
           <div className="w-full">
             <form
               onSubmit={addItem}
-              className="form-control flex flex-row w-full"
+              className="form-control flex flex-row w-full join"
             >
               <input
                 type="text"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full join-item"
                 name="newItem"
                 id="newItem"
                 placeholder="add new item"
               ></input>
-              <button className="btn btn-primary">submit</button>
+              <button className="btn btn-primary join-item">submit</button>
             </form>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1 mt-2">
             {notes &&
               notes.map((item) => (
                 <div key={item.id}>
@@ -115,7 +116,7 @@ function ListItem(props) {
 
   if (isEdit)
     return (
-      <div className="border p-2">
+      <div className="border-b p-2">
         <input
           ref={inputRef}
           type="text"
@@ -125,58 +126,58 @@ function ListItem(props) {
           placeholder={item.body}
           defaultValue={item.body}
         />
-        <button onClick={handleEdit} className="btn btn-sm btn-warning">
-          (edit)
-        </button>
 
-        <button
-          className="btn btn-sm btn-neutral"
-          onClick={() => setIsEdit(!isEdit)}
-        >
-          (cancel)
-        </button>
+        <div className="mt-1  flex gap-1">
+          <button onClick={handleEdit} className="btn btn-sm btn-warning">
+            edit
+          </button>
+          <button
+            className="btn btn-sm btn-neutral"
+            onClick={() => setIsEdit(!isEdit)}
+          >
+            cancel
+          </button>
+        </div>
       </div>
     );
 
   if (isDelete)
     return (
-      <div className="border p-2">
-        <p>
-          delete?
-          <p>{item.body}</p>
-          {item.id} {item.body}
+      <div className="border-b p-2">
+        <span className="text-error">Confirm Delete?</span>
+        <p>{item.body}</p>
+        <div className="mt-1  flex gap-1">
           <button
             className="btn btn-sm btn-error btn-outline"
             onClick={() => deleteItem(item.id)}
           >
-            (delete)
+            delete
           </button>
           <button
             className="btn btn-sm btn-neutral"
             onClick={() => setIsDelete(!isDelete)}
           >
-            (cancel)
+            cancel
           </button>
-        </p>
+        </div>
       </div>
     );
 
   return (
-    <div className="border p-2">
+    <div className="border-b p-2">
       <p>{item.body}</p>
-      <div>
-        {item.id}
+      <div className="mt-1 flex gap-1">
         <button
           className="btn btn-sm btn-warning"
           onClick={() => setIsEdit(!isEdit)}
         >
-          (edit)
+          edit
         </button>
         <button
           className="btn btn-sm btn-error"
           onClick={() => setIsDelete(!isDelete)}
         >
-          (delete)
+          delete
         </button>
       </div>
     </div>

@@ -17,7 +17,10 @@ function Profile() {
         <div className="border rounded-xl grow flex mb-4 p-4">
           <div className="flex grow gap-2">
             <p>account: {user?.email}</p>
-            <button className="btn btn-sm btn-outline btn-accent ">
+            <button
+              className="btn btn-sm btn-outline btn-accent"
+              onClick={() => signOut(auth)}
+            >
               log out
             </button>
           </div>
