@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function Index() {
   const { user, auth } = useAuth();
+  const router = useRouter();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +37,7 @@ export default function Index() {
         // Signed in
         const user = userCredential.user;
         setLoading(false);
-        // ...
+        router.push("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
